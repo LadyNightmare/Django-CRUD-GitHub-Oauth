@@ -130,3 +130,6 @@ dmypy.json
 
 # PyCharm config files
 .idea/
+
+# Secrets file
+interviewproject/interviewproject/secrets.py

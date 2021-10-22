@@ -1,0 +1,13 @@
+{% extends 'personalinfo/base.html' %}
+{% block title %} Home {% endblock %}
+
+
+{% block body %}
+
+{% if user.is_authenticated %}
+Welcome {{user.username}}
+{% else %}
+<h3>You are not authenticated!</h3>
+<a href="{% url 'social:begin' 'github' %}">Login with GitHub</a>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'personalinfo/base.html' %}
+{% block title %} Login {% endblock}
+
+
+{% block body %}
+
+<h1> Login here </h1>
+<a href="{% url 'social:begin' github %}">Login with GitHub</a>
+
+{% endblock %}
