@@ -2,12 +2,32 @@
 {% block title %} Home {% endblock %}
 
 
-{% block body %}
+{% block content %}
 
 {% if user.is_authenticated %}
-Welcome {{user.username}}
+{% if user.personalinfo %}
+Title: {{ user.personalinfo.title }}<br>
+Name: {{ user.personalinfo.name }}<br>
+Surname: {{ user.personalinfo.surname }}<br>
+Birth date: {{ user.personalinfo.birth_date }}<br>
+Nationality: {{ user.personalinfo.nationality }}<br>
+Phone: {{ user.personalinfo.phone_number }}<br>
+Current address: {{ user.personalinfo.current_address }}<br>
+{% if user.personalinfo.past_address %}
+Previous address: {{ user.personalinfo.past_address }}<br>
+{% else %}
+There are no previous addresses.<br>
+{% endif %}
+<a href="{% url 'update_info' %}">Update information</a><br>
+<a href="{% url 'delete_info' %}" onclick="return confirm('Are you sure you want to delete this?')">Delete
+    information</a><br>
+{% else %}
+<a href="{% url 'create_info' %}">Create information</a>
+{% endif %}
+<a href="{% url 'logout' %}">Logout from GitHub</a>
 {% else %}
 <h3>You are not authenticated!</h3>
 <a href="{% url 'social:begin' 'github' %}">Login with GitHub</a>
 {% endif %}
+
 {% endblock %}
