@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, MaxValueValidator
+from datetime import date
 from django.db import models
 
 TITLES = (
@@ -14,11 +15,32 @@ class PersonalInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     current_address = models.CharField(max_length=200)
     past_address = models.CharField(max_length=200, blank=True)
-    name = models.CharField(max_length=50)
-    surname = models.CharField(max_length=50)
+    name = models.CharField(max_length=50,
+                            validators=[
+                                RegexValidator(
+                                    regex='^[a-zA-ZÀ-ÿ\u00f1\u00d1]*(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$',
+                                    message='Only letters allowed.'
+                                )
+                            ]
+                            )
+    surname = models.CharField(max_length=50,
+                               validators=[
+                                   RegexValidator(
+                                       regex='^[a-zA-ZÀ-ÿ\u00f1\u00d1]*(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$',
+                                       message='Only letters allowed.'
+                                   )
+                               ]
+                               )
     title = models.CharField(max_length=4, choices=TITLES, default='Ms.')
-    birth_date = models.DateField()
-    nationality = models.CharField(max_length=50)
+    birth_date = models.DateField(validators=[MaxValueValidator(limit_value=date.today)])
+    nationality = models.CharField(max_length=50,
+                                   validators=[
+                                       RegexValidator(
+                                           regex='^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$',
+                                           message='Only letters allowed.'
+                                       )
+                                   ]
+                                   )
     phone_number = models.CharField(max_length=20,
                                     validators=[
                                         RegexValidator(
