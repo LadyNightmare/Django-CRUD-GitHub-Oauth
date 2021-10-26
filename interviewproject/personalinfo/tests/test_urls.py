@@ -7,8 +7,8 @@ from ..views import create_info, update_info, delete_info, logout
 class TestUrls(TestCase):
 
     def test_home_resolves(self):
-        # TODO
-        pass
+        url = reverse('home')
+        self.assertEqual(resolve(url).route, '')
 
     def test_create_info_resolves(self):
         url = reverse('create_info')
