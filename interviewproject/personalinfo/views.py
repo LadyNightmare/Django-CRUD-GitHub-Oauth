@@ -1,16 +1,15 @@
-from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404, redirect
-# Create your views here.
-from django.template import loader
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 from django.contrib.auth import logout as auth_logout
 from .forms import PersonalInfoForm
 from .models import PersonalInfo
 
-
+@login_required
 def logout(request):
     auth_logout(request)
     return redirect('/')
 
+@login_required
 def create_info(request):
     if request.method == 'POST':
         form = PersonalInfoForm(request.POST)
@@ -33,11 +32,12 @@ def create_info(request):
         }
         return render(request, "personalinfo/personal_info_form.html", context)
 
+@login_required
 def delete_info(request):
     request.user.personalinfo.delete()
     return redirect('/')
 
-
+@login_required
 def update_info(request):
     instance = PersonalInfo.objects.get(pk=request.user.personalinfo.id)
     if request.method == 'POST':
