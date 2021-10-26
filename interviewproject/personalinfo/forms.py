@@ -1,7 +1,5 @@
 from django.forms import ModelForm, CharField, DateInput
-
 from .models import PersonalInfo
-
 
 class PersonalInfoForm(ModelForm):
     address = CharField()
