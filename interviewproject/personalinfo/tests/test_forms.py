@@ -32,19 +32,19 @@ class TestForms(TestCase):
         )
         self.assertFalse(form.is_valid())
         self.assertEqual(len(form.errors), 1)
-        self.assertTrue('address' in form.errors.keys())
+        self.assertIn('address', form.errors.keys())
         self.assertEqual(form.errors['address'][0], 'This field is required.')
 
     def test_personal_info_form_no_data(self):
         form = PersonalInfoForm({})
         self.assertFalse(form.is_valid())
         self.assertEqual(len(form.errors), 7)
-        # TODO comprobar errores
+        for field in self.VALID_FORM.keys():
+            self.assertIn(field, form.errors.keys())
+            self.assertEqual(form.errors[field][0], 'This field is required.')
 
     def test_personal_info_form_address_is_set(self):
-        # TODO
-        pass
-        # form = PersonalInfoForm(self.VALID_FORM)
-        # self.assertTrue(form.is_valid())
-        # personal_info = form.save()
-        # self.assertEqual(personal_info.current_address, self.VALID_FORM['address'])
+        form = PersonalInfoForm(self.VALID_FORM)
+        self.assertTrue(form.is_valid())
+        personal_info = form.save(commit=False)
+        self.assertEqual(personal_info.current_address, self.VALID_FORM['address'])
