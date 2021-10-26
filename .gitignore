@@ -133,3 +133,6 @@ dmypy.json
 
 # Secrets file
 interviewproject/interviewproject/secrets.py
+
+# Migrations
+interviewproject/personalinfo/migrations/
