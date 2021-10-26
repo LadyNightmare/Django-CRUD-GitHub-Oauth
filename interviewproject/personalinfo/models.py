@@ -9,8 +9,6 @@ TITLES = (
     ('Ms.', 'Ms.')
 )
 
-
-# Create your models here.
 class PersonalInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     current_address = models.CharField(max_length=200)
