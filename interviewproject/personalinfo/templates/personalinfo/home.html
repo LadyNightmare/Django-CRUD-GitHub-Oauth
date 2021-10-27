@@ -6,28 +6,37 @@
 
 {% if user.is_authenticated %}
 {% if user.personalinfo %}
-Title: {{ user.personalinfo.title }}<br>
-Name: {{ user.personalinfo.name }}<br>
-Surname: {{ user.personalinfo.surname }}<br>
-Birth date: {{ user.personalinfo.birth_date }}<br>
-Nationality: {{ user.personalinfo.nationality }}<br>
-Phone: {{ user.personalinfo.phone_number }}<br>
-Current address: {{ user.personalinfo.current_address }}<br>
+<p><b>Title:</b> {{ user.personalinfo.title }}<br></p>
+<p><b>Name:</b> {{ user.personalinfo.name }}<br></p>
+<p><b>Surname:</b> {{ user.personalinfo.surname }}<br></p>
+<p><b>Birth date:</b> {{ user.personalinfo.birth_date }}<br></p>
+<p><b>Nationality:</b> {{ user.personalinfo.nationality }}<br></p>
+<p><b>Phone:</b> {{ user.personalinfo.phone_number }}<br></p>
+<p><b>Current address:</b> {{ user.personalinfo.current_address }}<br></p>
 {% if user.personalinfo.past_address %}
-Previous address: {{ user.personalinfo.past_address }}<br>
+<p><b>Previous address:</b> {{ user.personalinfo.past_address }}<br></p>
 {% else %}
-There are no previous addresses.<br>
+<p><b>There are no previous addresses.</b><br></p>
 {% endif %}
-<a href="{% url 'update_info' %}">Update information</a><br>
-<a href="{% url 'delete_info' %}" onclick="return confirm('Are you sure you want to delete this?')">Delete
-    information</a><br>
+<a href="{% url 'update_info' %}" class="btn btn-primary" style="margin: 1%;">
+    <span>Update information</span>
+</a><br>
+<a href="{% url 'delete_info' %}" onclick="return confirm('Are you sure you want to delete this?')" class="btn btn-primary" style="margin: 1%;">
+    <span>Delete information</span>
+</a><br>
 {% else %}
-<a href="{% url 'create_info' %}">Create information</a>
+<a href="{% url 'create_info' %}" class="btn btn-primary" style="margin: 1%;">
+    <span>Create information</span>
+</a>
 {% endif %}
-<a href="{% url 'logout' %}">Logout from GitHub</a>
+<a href="{% url 'logout' %}" class="btn btn-primary" style="margin: 1%;">
+    <span>Logout from GitHub</span>
+</a>
 {% else %}
 <h3>You are not authenticated!</h3>
-<a href="{% url 'social:begin' 'github' %}">Login with GitHub</a>
+<a href="{% url 'social:begin' 'github' %}" class="btn btn-primary" style="margin: 1%;">
+    <span>Login with GitHub</span>
+</a>
 {% endif %}
 
 {% endblock %}
